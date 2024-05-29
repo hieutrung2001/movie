@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Movie.Domain.Models;
 using Movie.Persistence.Contexts;
 using System;
 using System.Collections.Generic;
@@ -17,6 +21,29 @@ namespace Movie.Persistence.Configurations
             services.AddDbContext<MovieDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("MovieConnect"))
             );
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<MovieDbContext>()
+                .AddDefaultTokenProviders();
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                configuration.GetSection("AppSettings:Token").Value!));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
 
             return services; 
         }
