@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Movie.Persistence.Configurations
+namespace Movie.Core.Services.MovieOverviews
 {
-    public class ApplicationUserDbInitial
+    public class MovieOverviewDto
     {
+        
     }
 }

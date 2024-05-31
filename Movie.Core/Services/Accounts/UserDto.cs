@@ -10,7 +10,7 @@ namespace Movie.Core.Services.Accounts
     public class UserDto
     {
         [Required]
-        public string Email { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
         [Required]
         public string Password { get; set; } = string.Empty;
     }

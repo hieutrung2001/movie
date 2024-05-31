@@ -8,9 +8,48 @@ namespace Movie.Persistence.Contexts
     {
         public MovieDbContext (DbContextOptions<MovieDbContext> options) : base(options) { }
 
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<MovieOverview> MovieOverviews { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Episode> Episodes { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<MovieOverviewGenre> MovieOverviewGenres { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            DataSeeding(builder);
+            RegisterModels(builder);
+        }
+
+        public void DataSeeding(ModelBuilder builder)
+        {
+            builder.Entity<Country>().HasData([
+                    new Country
+                    {
+                        Id = 1,
+                        Code = "123xx",
+                        Name = "Viet Nam",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                    },
+                    new Country
+                    {
+                        Id = 2,
+                        Code = "124xx",
+                        Name = "Trung Quốc",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                    },
+                    new Country
+                    {
+                        Id = 3,
+                        Code = "125xx",
+                        Name = "Nhật Bản",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                    },
+                ]);
         }
 
         public int SaveChanges(bool acceptAllChangeOnSuccess = true, bool allowHardDelete = false, bool allowCreatedNow = true)
@@ -55,6 +94,15 @@ namespace Movie.Persistence.Contexts
                     }
                 }
             }
+        }
+
+        public static void RegisterModels(ModelBuilder builder)
+        {
+            builder.Entity<MovieOverviewGenre>().HasKey(e => new
+            {
+                e.MovieOverviewId,
+                e.GenreId
+            });
         }
     }
 }

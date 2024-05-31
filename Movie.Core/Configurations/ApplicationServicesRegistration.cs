@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Movie.Core.Services.Accounts;
+using Movie.Core.Services.Genres;
+using Movie.Core.Services.MovieOverviews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace Movie.Core.Configurations
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();           
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IMovieOverviewService, MovieOverviewService>();
             return services;
         }
     }

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Movie.Domain\Movie.Domain.csproj" />
+    <ProjectReference Include="..\Movie.Persistence\Movie.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

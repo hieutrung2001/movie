@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 //using Microsoft.IdentityModel.Tokens;
@@ -13,18 +14,16 @@ namespace Movie.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
+    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly IConfiguration _configuration;
 
         public static ApplicationUser user = new ApplicationUser();
 
-        public AccountController(IAccountService accountService, IConfiguration configuration)
+        public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-            _configuration = configuration;
         }
 
         [HttpPost("register")]
@@ -32,7 +31,7 @@ namespace Movie.Web.Controllers
         {
             string passwordHash = Utils.PasswordHash(request.Password);
 
-            user.Email = request.Email;
+            user.UserName = request.Username;
             user.PasswordHash = passwordHash;
 
             return Ok(user);
@@ -41,7 +40,7 @@ namespace Movie.Web.Controllers
         [HttpPost("login")]
         public ActionResult<ApplicationUser> Login(UserDto request)
         {
-            if (user.Email != request.Email)
+            if (user.UserName != request.Username)
             {
                 return BadRequest("User not found!");
             }
@@ -51,30 +50,10 @@ namespace Movie.Web.Controllers
                 return BadRequest("Wrong password!");
             }
 
-            string token = CreateToken(user);
+            string token = _accountService.CreateToken(user);
 
             return Ok(token);
         }
 
-        private string CreateToken(ApplicationUser user)
-        {
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Email, user.Email)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value!));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            var token = new JwtSecurityToken(
-                    claims: claims,
-                    expires: DateTime.Now.AddDays(1),
-                    signingCredentials: creds
-                );
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwt;
-        }
     }
 }
