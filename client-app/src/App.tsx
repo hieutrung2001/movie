@@ -1,9 +1,12 @@
 import React from 'react'
-import HomePage from './containers/Home/views'
+import Layout from './layouts/Layout'
+import HomePage from './containers/Home/views/HomePage'
 
 function App() {
   return (
-    <HomePage />
+    <Layout>
+      <HomePage />
+    </Layout>
   )
 }
 
