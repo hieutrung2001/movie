@@ -1,12 +1,20 @@
 import React from 'react'
 import Layout from './layouts/Layout'
-import HomePage from './containers/Home/views/HomePage'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { publicRoutes } from './routes'
 
 function App() {
   return (
-    <Layout>
-      <HomePage />
-    </Layout>
+    <Router>
+      <Layout>
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            const Page = route.component
+            return <Route key={index} path={route.path} element={<Page />} />
+          })}
+        </Routes>
+      </Layout>
+    </Router>
   )
 }
 
