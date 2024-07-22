@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movie.Core.Services.Genres;
 
 namespace Movie.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin, Guest")]
     public class GenreController : ControllerBase
     {
         private readonly IGenreService _genreService;

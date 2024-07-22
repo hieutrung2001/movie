@@ -6,11 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Movie.Domain.Models;
 using Movie.Persistence.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Movie.Persistence.Configurations
 {
@@ -26,7 +22,7 @@ namespace Movie.Persistence.Configurations
                 .AddDefaultTokenProviders();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                configuration.GetSection("AppSettings:Token").Value!));
+                configuration.GetSection("Jwt:Key").Value!));
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -40,8 +36,10 @@ namespace Movie.Persistence.Configurations
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = key,
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"]
                 };
             });
 

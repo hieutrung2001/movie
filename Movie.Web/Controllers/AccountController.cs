@@ -14,7 +14,6 @@ namespace Movie.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -26,34 +25,19 @@ namespace Movie.Web.Controllers
             _accountService = accountService;
         }
 
-        [HttpPost("register")]
-        public ActionResult<UserDto> Register(UserDto request)
+        [AllowAnonymous]
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody] UserDto userLogin)
         {
-            string passwordHash = Utils.PasswordHash(request.Password);
+            var user = _accountService.Authentication(userLogin);
 
-            user.UserName = request.Username;
-            user.PasswordHash = passwordHash;
-
-            return Ok(user);
-        }
-
-        [HttpPost("login")]
-        public ActionResult<ApplicationUser> Login(UserDto request)
-        {
-            if (user.UserName != request.Username)
+            if (user != null)
             {
-                return BadRequest("User not found!");
+                var token = _accountService.Generate(user);
+                return Ok(token);
             }
 
-            if (!Utils.Verify(request.Password, user.PasswordHash))
-            {
-                return BadRequest("Wrong password!");
-            }
-
-            string token = _accountService.CreateToken(user);
-
-            return Ok(token);
+            return NotFound("User not found");
         }
-
     }
 }

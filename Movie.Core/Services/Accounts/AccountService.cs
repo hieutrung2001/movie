@@ -14,7 +14,8 @@ namespace Movie.Core.Services.Accounts
     public interface IAccountService
     {
         string Get();
-        string CreateToken(ApplicationUser user);
+        string Generate(ApplicationUser user);
+        ApplicationUser Authentication(UserDto user);
     }
 
     public class AccountService : IAccountService
@@ -31,25 +32,40 @@ namespace Movie.Core.Services.Accounts
             return "Hello, guys";
         }
 
-        public string CreateToken(ApplicationUser user)
+
+        public string Generate(ApplicationUser user)
         {
-            List<Claim> claims = new List<Claim>()
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
             {
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value!));
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(30),
+                signingCredentials: credentials);
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            var token = new JwtSecurityToken(
-                    claims: claims,
-                    expires: DateTime.Now.AddDays(1),
-                    signingCredentials: creds
-                );
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
 
-            return jwt;
+        public ApplicationUser Authentication(UserDto userLogin)
+        {
+            var currentUser = userLogin.Username.Equals("admin") && userLogin.Password.Equals("admin");
+            if (currentUser)
+            {
+                return new ApplicationUser
+                {
+                    UserName = userLogin.Username,
+                    PasswordHash = userLogin.Password,
+                    Role = "Guest"
+                };
+            }
+            return null;
         }
     }
 }
