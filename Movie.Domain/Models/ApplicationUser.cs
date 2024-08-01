@@ -5,7 +5,7 @@ namespace Movie.Domain.Models
 {
     public class ApplicationUser : IdentityUser, IBaseEntity
     {
-        public string Role { get; set; }
+        public string Roles { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -12,6 +12,7 @@ namespace Movie.Core.Services.Genres
         object Create(GenreDto genre);
         object Update(int id, GenreDto genre);
         object Remove(int id);
+        object Get(int id);
     }
 
     public class GenreService : IGenreService
@@ -21,6 +22,27 @@ namespace Movie.Core.Services.Genres
         public GenreService(MovieDbContext movieDbContext)
         {
             _movieDbContext = movieDbContext;
+        }
+
+        public object Get(int id)
+        {
+            if (id <= 0)
+            {
+                return null;
+            }
+
+            var item = _movieDbContext.Genres.FirstOrDefault(i => i.Id == id);
+            if (item == default)
+            {
+                throw new Exception("Item not found");
+            }
+
+            return new GenreDto
+            {
+                Id = item.Id,
+                Name = item.Name,  
+                Slug = item.Slug
+            };
         }
 
         public PagedResponseDto<GenreDto> Get(int currentPage, int pageSize)

@@ -7,9 +7,21 @@ const publicRoutes = [
   { path: '/genre', component: GenreView }
 ]
 
+const adminRoutes = {
+  common: '/admin',
+  routes: [
+    {
+    }
+  ]
+}
+
 // private routes
 const privateRoutes = [
 
 ]
 
-export { publicRoutes, privateRoutes }
+export { 
+  publicRoutes, 
+  privateRoutes,
+  adminRoutes 
+}

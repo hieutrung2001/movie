@@ -1,14 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-
-//using Microsoft.IdentityModel.Tokens;
-using Movie.Core.Helpers;
 using Movie.Core.Services.Accounts;
 using Movie.Domain.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace Movie.Web.Controllers
 {
@@ -39,5 +32,6 @@ namespace Movie.Web.Controllers
 
             return NotFound("User not found");
         }
+
     }
 }

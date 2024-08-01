@@ -1,13 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Movie.Core.Helpers;
 using Movie.Domain.Models;
-using System;
-using System.Collections.Generic;
+using Movie.Persistence.Contexts;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Movie.Core.Services.Accounts
 {
@@ -21,10 +20,12 @@ namespace Movie.Core.Services.Accounts
     public class AccountService : IAccountService
     {
         private readonly IConfiguration _configuration;
+        private readonly MovieDbContext _movieDbContext;
 
-        public AccountService(IConfiguration configuration)
+        public AccountService(IConfiguration configuration, MovieDbContext movieDbContext)
         {
             _configuration = configuration;
+            _movieDbContext = movieDbContext;
         }
 
         public string Get()
@@ -41,7 +42,7 @@ namespace Movie.Core.Services.Accounts
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                new Claim(ClaimTypes.Role, user.Role)
+                new Claim(ClaimTypes.Role, user.Roles)
             };
 
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
@@ -55,17 +56,20 @@ namespace Movie.Core.Services.Accounts
 
         public ApplicationUser Authentication(UserDto userLogin)
         {
-            var currentUser = userLogin.Username.Equals("admin") && userLogin.Password.Equals("admin");
-            if (currentUser)
+            var item = _movieDbContext.Users.AsNoTracking().FirstOrDefault(i => i.UserName.Equals(userLogin.Username.Trim()));
+            if (item == default)
             {
-                return new ApplicationUser
-                {
-                    UserName = userLogin.Username,
-                    PasswordHash = userLogin.Password,
-                    Role = "Guest"
-                };
+                return null;
             }
-            return null;
+            if (!Utils.Verify(userLogin.Password.Trim(), item.PasswordHash))
+            {
+                return null;
+            }
+            return new ApplicationUser
+            {
+                UserName = userLogin.Username,
+                Roles = item.Roles,
+            };
         }
     }
 }

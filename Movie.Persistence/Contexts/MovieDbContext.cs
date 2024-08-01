@@ -24,31 +24,14 @@ namespace Movie.Persistence.Contexts
 
         public void DataSeeding(ModelBuilder builder)
         {
-            builder.Entity<Country>().HasData([
-                    new Country
+            builder.Entity<ApplicationUser>().HasData([
+                    new ApplicationUser
                     {
-                        Id = 1,
-                        Code = "123xx",
-                        Name = "Viet Nam",
+                        UserName = "admin",
+                        PasswordHash = "$2y$10$ZaOZSoOJYb8cJ5l4ZrhgA.wvDYTuWpLlknt4twj7ZinkLY6DpuAlC",
+                        Roles = "Admin",
                         CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                    },
-                    new Country
-                    {
-                        Id = 2,
-                        Code = "124xx",
-                        Name = "Trung Quốc",
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                    },
-                    new Country
-                    {
-                        Id = 3,
-                        Code = "125xx",
-                        Name = "Nhật Bản",
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                    },
+                    }
                 ]);
         }
 
