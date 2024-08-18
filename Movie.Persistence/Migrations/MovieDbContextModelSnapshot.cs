@@ -206,6 +206,10 @@ namespace Movie.Persistence.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Roles")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -230,6 +234,26 @@ namespace Movie.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a75659a4-5d78-418e-ac3f-0d8472c4e39c",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0b2aa2e9-6c90-49b5-83c7-99a2f526add5",
+                            CreatedAt = new DateTime(2024, 7, 24, 19, 35, 28, 500, DateTimeKind.Local).AddTicks(3432),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailConfirmed = false,
+                            IsDeleted = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "$2y$10$ZaOZSoOJYb8cJ5l4ZrhgA.wvDYTuWpLlknt4twj7ZinkLY6DpuAlC",
+                            PhoneNumberConfirmed = false,
+                            Roles = "Admin",
+                            SecurityStamp = "f6d07e3f-3d76-4682-b4c1-ce59e101bd49",
+                            TwoFactorEnabled = false,
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Movie.Domain.Models.Comment", b =>
@@ -312,38 +336,6 @@ namespace Movie.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "123xx",
-                            CreatedAt = new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2144),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Viet Nam",
-                            UpdatedAt = new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2160)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "124xx",
-                            CreatedAt = new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2161),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Trung Quốc",
-                            UpdatedAt = new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2162)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "125xx",
-                            CreatedAt = new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2163),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Nhật Bản",
-                            UpdatedAt = new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2164)
-                        });
                 });
 
             modelBuilder.Entity("Movie.Domain.Models.Episode", b =>

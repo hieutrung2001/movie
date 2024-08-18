@@ -1,20 +1,13 @@
-import React from 'react'
-import { MDBBtn } from 'mdb-react-ui-kit'
 
-const Button = (props: any) => {
+import { Button } from "@mui/material"
+
+const MuiButton = (props: any) => {
   const {
-    value,
-    className,
-    color,
+    text
   } = props
   return (
-    <MDBBtn
-      className={className}
-      style={{ backgroundColor: color }}
-    >
-      {value}
-    </MDBBtn>
+    <Button variant="contained">{text}</Button>
   )
 }
 
-export default Button
+export default MuiButton

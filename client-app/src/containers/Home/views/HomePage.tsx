@@ -1,13 +1,13 @@
-import React, { Fragment } from "react"
+import React from "react"
+import { Button } from "@mui/material"
 
 const HomePage = () => {
   return (
-    <Fragment>
+    <>
       <div className="pt-2 bg-info">
-        <img src="" alt="img" />
-        tos
+        <Button variant="contained">Trungle</Button>
       </div>
-    </Fragment>
+    </>
   )
 }
 

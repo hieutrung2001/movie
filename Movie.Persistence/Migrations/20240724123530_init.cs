@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Movie.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDb : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +30,7 @@ namespace Movie.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -319,14 +318,9 @@ namespace Movie.Persistence.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Countries",
-                columns: new[] { "Id", "Code", "CreatedAt", "DeletedAt", "IsDeleted", "Name", "UpdatedAt" },
-                values: new object[,]
-                {
-                    { 1, "123xx", new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2144), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Viet Nam", new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2160) },
-                    { 2, "124xx", new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2161), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Trung Quốc", new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2162) },
-                    { 3, "125xx", new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2163), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Nhật Bản", new DateTime(2024, 5, 30, 19, 51, 48, 2, DateTimeKind.Local).AddTicks(2164) }
-                });
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "DeletedAt", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Roles", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName" },
+                values: new object[] { "a75659a4-5d78-418e-ac3f-0d8472c4e39c", 0, "0b2aa2e9-6c90-49b5-83c7-99a2f526add5", new DateTime(2024, 7, 24, 19, 35, 28, 500, DateTimeKind.Local).AddTicks(3432), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, false, false, null, null, null, "$2y$10$ZaOZSoOJYb8cJ5l4ZrhgA.wvDYTuWpLlknt4twj7ZinkLY6DpuAlC", null, false, "Admin", "f6d07e3f-3d76-4682-b4c1-ce59e101bd49", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
