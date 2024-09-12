@@ -1,27 +1,21 @@
 import GenreView from "../containers/Genres/views/GenreView"
 import HomePage from "../containers/Home/views/HomePage"
+import Login from "../admin/Login/views/Login"
 
 // public routes
 const publicRoutes = [
-  { path: '/', component: HomePage },
-  { path: '/genre', component: GenreView }
+  { path: '/', element: <HomePage /> },
+  { path: '/genre', element: <GenreView /> },
+  
 ]
-
-const adminRoutes = {
-  common: '/admin',
-  routes: [
-    {
-    }
-  ]
-}
 
 // private routes
 const privateRoutes = [
-
+  // admin
+  { path: 'admin/login', element: <Login /> },
 ]
 
 export { 
   publicRoutes, 
   privateRoutes,
-  adminRoutes 
 }

@@ -1,20 +1,23 @@
 import React from 'react'
 import Layout from './layouts/Layout'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { publicRoutes } from './routes'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { privateRoutes, publicRoutes } from './routes'
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      // parent route component
+      element: <Layout />,
+      // child route components
+      children: publicRoutes
+    },
+    {
+      // child route components
+      children: privateRoutes
+    },
+  ])
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          {publicRoutes.map((route, index) => {
-            const Page = route.component
-            return <Route key={index} path={route.path} element={<Page />} />
-          })}
-        </Routes>
-      </Layout>
-    </Router>
+    <RouterProvider router={router} />
   )
 }
 

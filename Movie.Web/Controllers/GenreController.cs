@@ -17,6 +17,7 @@ namespace Movie.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public object Get([FromQuery] int currentPage, [FromQuery] int pageSize)
         {
             try

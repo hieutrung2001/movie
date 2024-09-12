@@ -1,4 +1,11 @@
-
-.space {
-  height: 1px;
+a {
+  text-decoration: none;
 }
+
+.nav-item:hover .dropdown-menu {
+  display: block;
+  min-height: 20px;
+  padding: 5px 10px;
+  background-color: rgb(37, 37, 37);
+  color: white
+} 
