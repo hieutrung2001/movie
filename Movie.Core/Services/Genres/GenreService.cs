@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
 using Movie.Core.Dtos;
 using Movie.Core.Extensions;
 using Movie.Domain.Models;
@@ -8,7 +9,7 @@ namespace Movie.Core.Services.Genres
 {
     public interface IGenreService
     {
-        PagedResponseDto<GenreDto> Get(int currentPage, int pageSize);
+        PagedResult<GenreDto> Get(int currentPage, int pageSize);
         object Create(GenreDto genre);
         object Update(int id, GenreDto genre);
         object Remove(int id);
@@ -26,13 +27,9 @@ namespace Movie.Core.Services.Genres
 
         public object Get(int id)
         {
-            if (id <= 0)
-            {
-                return null;
-            }
 
-            var item = _movieDbContext.Genres.FirstOrDefault(i => i.Id == id);
-            if (item == default)
+            var item = _movieDbContext.Genres.AsNoTracking().FirstOrDefault(i => i.Id == id);
+            if (id <= 0 || item == default)
             {
                 throw new Exception("Item not found");
             }
@@ -45,7 +42,7 @@ namespace Movie.Core.Services.Genres
             };
         }
 
-        public PagedResponseDto<GenreDto> Get(int currentPage, int pageSize)
+        public PagedResult<GenreDto> Get(int currentPage, int pageSize)
         {
             var query = _movieDbContext.Genres.Where(i => !i.IsDeleted);
 
@@ -63,11 +60,16 @@ namespace Movie.Core.Services.Genres
                 Slug = x.Slug
             }).ToList();
 
-            return items.ToPagedResponseList<GenreDto>(currentPage, pageSize, totalCount);
+            return items.GetPagedData(currentPage, pageSize, totalCount);
         }
 
         public object Create(GenreDto genre)
         {
+            var existing = _movieDbContext.Genres.AsNoTracking().FirstOrDefault(i => i.Slug == genre.Slug);
+            if (existing != default)
+            {
+                throw new Exception("Genre already exists");
+            }
             var newGenre = new Genre
             {
                 Name = genre.Name,

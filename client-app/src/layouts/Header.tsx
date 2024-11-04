@@ -23,7 +23,7 @@ const Header = () => {
             <a href="#" className="nav-link dropdown">Thể loại</a>
             <ul className="dropdown-menu">
               {genres && genres.map((v:any, i:any) => {
-                return <li><a href="#">{v.name}</a></li>
+                return <li key={i}><a href="#">{v.name}</a></li>
               })}
             </ul>
           </li>

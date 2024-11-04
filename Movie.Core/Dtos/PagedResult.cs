@@ -2,7 +2,7 @@
 
 namespace Movie.Core.Dtos
 {
-    public class PagedResponseDto<T>
+    public class PagedResult<T>
     {
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }

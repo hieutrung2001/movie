@@ -1,8 +1,11 @@
 import React from 'react'
 
 import './Login.css'
-import { Formik } from 'formik'
+import { Formik, replace } from 'formik'
 import * as Yup from 'yup'
+import { LoginModel } from '../constants'
+import { auth } from '../apis'
+import { useNavigate } from 'react-router-dom'
 
 const schema = Yup.object().shape({
   username: Yup.string()
@@ -12,26 +15,29 @@ const schema = Yup.object().shape({
       .min(2, "Password must be at least 2 characters")
 })
 
-export type LoginModel = {
-  username: string
-  password: string
-}
-
-var initialValues: LoginModel = {
-  username: '',
-  password: ''
+const initialValues: LoginModel = {
+  username: 'admin ',
+  password: 'admin'
 }
 
 const Login = () => {
+  document.title = 'Login'
+  const navigate = useNavigate()
   return (
     <>
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
       <Formik
         validationSchema={schema}
         initialValues={initialValues}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           // Alert the input values of the form that we filled
-          alert(JSON.stringify(values));
+          const res = await auth(values)
+          if (res.status != 200) {
+            alert(res.message)
+          } else {
+            sessionStorage.setItem('_token', res.data)
+            navigate("/admin")
+          }
         }}
       >
         {({

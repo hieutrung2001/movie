@@ -32,7 +32,14 @@ namespace Movie.Web.Controllers
         [HttpPost]
         public object Create([FromBody] GenreDto genreDto)
         {
-            return _genreService.Create(genreDto);
+            try
+            {
+                return _genreService.Create(genreDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]

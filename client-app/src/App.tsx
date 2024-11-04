@@ -9,11 +9,11 @@ function App() {
       // parent route component
       element: <Layout />,
       // child route components
-      children: publicRoutes
+      children: publicRoutes.commonHeaderView
     },
     {
       // child route components
-      children: privateRoutes
+      children: privateRoutes.commonSidebarView
     },
   ])
   return (

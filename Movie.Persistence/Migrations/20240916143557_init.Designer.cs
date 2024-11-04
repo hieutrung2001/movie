@@ -12,7 +12,7 @@ using Movie.Persistence.Contexts;
 namespace Movie.Persistence.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20240724123530_init")]
+    [Migration("20240916143557_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -241,10 +241,10 @@ namespace Movie.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a75659a4-5d78-418e-ac3f-0d8472c4e39c",
+                            Id = "aa37177f-8eba-470a-a761-0b23736cb3c9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0b2aa2e9-6c90-49b5-83c7-99a2f526add5",
-                            CreatedAt = new DateTime(2024, 7, 24, 19, 35, 28, 500, DateTimeKind.Local).AddTicks(3432),
+                            ConcurrencyStamp = "0967895a-4661-4943-b24a-02fba984669c",
+                            CreatedAt = new DateTime(2024, 9, 16, 21, 35, 56, 95, DateTimeKind.Local).AddTicks(3519),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -252,7 +252,7 @@ namespace Movie.Persistence.Migrations
                             PasswordHash = "$2y$10$ZaOZSoOJYb8cJ5l4ZrhgA.wvDYTuWpLlknt4twj7ZinkLY6DpuAlC",
                             PhoneNumberConfirmed = false,
                             Roles = "Admin",
-                            SecurityStamp = "f6d07e3f-3d76-4682-b4c1-ce59e101bd49",
+                            SecurityStamp = "43579738-2315-4459-a4b9-8f18f0e71d2b",
                             TwoFactorEnabled = false,
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserName = "admin"

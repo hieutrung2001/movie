@@ -30,7 +30,7 @@ namespace Movie.Web.Controllers
                 return Ok(token);
             }
 
-            return NotFound("User not found");
+            return BadRequest("User not found");
         }
 
     }

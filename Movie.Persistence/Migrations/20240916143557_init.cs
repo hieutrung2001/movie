@@ -320,7 +320,7 @@ namespace Movie.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "DeletedAt", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Roles", "SecurityStamp", "TwoFactorEnabled", "UpdatedAt", "UserName" },
-                values: new object[] { "a75659a4-5d78-418e-ac3f-0d8472c4e39c", 0, "0b2aa2e9-6c90-49b5-83c7-99a2f526add5", new DateTime(2024, 7, 24, 19, 35, 28, 500, DateTimeKind.Local).AddTicks(3432), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, false, false, null, null, null, "$2y$10$ZaOZSoOJYb8cJ5l4ZrhgA.wvDYTuWpLlknt4twj7ZinkLY6DpuAlC", null, false, "Admin", "f6d07e3f-3d76-4682-b4c1-ce59e101bd49", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin" });
+                values: new object[] { "aa37177f-8eba-470a-a761-0b23736cb3c9", 0, "0967895a-4661-4943-b24a-02fba984669c", new DateTime(2024, 9, 16, 21, 35, 56, 95, DateTimeKind.Local).AddTicks(3519), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, false, false, null, null, null, "$2y$10$ZaOZSoOJYb8cJ5l4ZrhgA.wvDYTuWpLlknt4twj7ZinkLY6DpuAlC", null, false, "Admin", "43579738-2315-4459-a4b9-8f18f0e71d2b", false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

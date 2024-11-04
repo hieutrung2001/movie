@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Movie.Core.Extensions
 {
-    public static class DataPagerExtension
+    public static class QueryableExtension
     {
-        public static PagedResponseDto<T> ToPagedResponseList<T>(this List<T> items, int currentPage, int pageSize, int totalCount)
+        public static PagedResult<T> GetPagedData<T>(this IList<T> items, int currentPage, int pageSize, int totalCount)
         {
-            return new PagedResponseDto<T>
+            return new PagedResult<T>
             {
                 CurrentPage = currentPage,
                 PageSize = pageSize,
