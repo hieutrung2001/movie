@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { auth } from '../apis'
-import { LoginModel } from '../constants'
+import { LoginModel } from '../../constants'
 
 const useLogin = () => {
   const [token, setToken] = useState('')

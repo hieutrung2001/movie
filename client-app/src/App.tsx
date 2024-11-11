@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from './layouts/Layout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { privateRoutes, publicRoutes } from './routes'
+import MenuSidebar from './admin/layouts/MenuSidebar'
 
 function App() {
   const router = createBrowserRouter([
@@ -12,7 +13,12 @@ function App() {
       children: publicRoutes.commonHeaderView
     },
     {
-      // child route components
+      // auth
+      children: privateRoutes.auth
+    },
+    {
+      // sidebarView
+      element: <MenuSidebar />,
       children: privateRoutes.commonSidebarView
     },
   ])

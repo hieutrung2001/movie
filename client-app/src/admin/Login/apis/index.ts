@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios"
 import { BASE_URL, ResponseData } from "../../../constants"
-import { LoginModel } from "../constants"
+import { LoginModel } from "../../constants"
 
 const URL = `${BASE_URL}/account`
 

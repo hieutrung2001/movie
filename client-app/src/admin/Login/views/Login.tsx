@@ -3,7 +3,7 @@ import React from 'react'
 import './Login.css'
 import { Formik, replace } from 'formik'
 import * as Yup from 'yup'
-import { LoginModel } from '../constants'
+import { LoginModel } from '../../constants'
 import { auth } from '../apis'
 import { useNavigate } from 'react-router-dom'
 

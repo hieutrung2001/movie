@@ -15,9 +15,11 @@ const publicRoutes = {
 
 // private routes
 const privateRoutes = {
+  auth: [
+    { path: '/admin/login', element: <Login /> },
+  ],
   commonSidebarView: [
     // admin
-    { path: '/admin/login', element: <Login /> },
     { path: '/admin', element: <Home /> },
     { path: '/admin/genre', element: <GenreList />}
   ],
