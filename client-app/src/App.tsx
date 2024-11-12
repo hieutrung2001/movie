@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from './layouts/Layout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { privateRoutes, publicRoutes } from './routes'
-import MenuSidebar from './admin/layouts/MenuSidebar'
+import Combine from './admin/layouts/Combine'
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +18,7 @@ function App() {
     },
     {
       // sidebarView
-      element: <MenuSidebar />,
+      element: <Combine />,
       children: privateRoutes.commonSidebarView
     },
   ])

@@ -6,7 +6,7 @@ const useGenreList = () => {
   
   const getData = async () => {
     const res = await get({ currentPage: 1, pageSize: 5 })
-    setData(res.data)
+    setData(res.data.items)
   }
 
   useEffect(() => {
