@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Table } from 'reactstrap'
 
-const ReactTable = (props: any) => {
+const TableList = (props: any) => {
   const {
     listTitle,
     data,
@@ -21,13 +21,11 @@ const ReactTable = (props: any) => {
       </thead>
       <tbody>
         {data.length > 0 && data.map((v, i) => {
-          var res: any = []
-          Object.keys(v).forEach((key) => {
-            res.push(v[key])
-          })
           return (
-            <tr key={i}>
-              {res.map((v1) => <td>{v1}</td>)}
+            <tr key={v.id}>
+              <td>{i+1}</td>
+              <td>{v.name}</td>
+              <td>{v.slug}</td>
               <td>
                 <Button onClick={toggle} color="warning">
                   Sửa
@@ -45,4 +43,4 @@ const ReactTable = (props: any) => {
   )
 }
 
-export default ReactTable
+export default TableList

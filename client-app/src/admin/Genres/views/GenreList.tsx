@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
-import ReactTable from '../../../components/ReactTable'
+import TableList from '../modals/TableList'
 import useGenreList from '../hooks/useGenreList'
 
 const GenreList = () => {
@@ -37,7 +37,7 @@ const GenreList = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <ReactTable
+      <TableList
         listTitle={listTitle}
         data={data}
         toggle={toggle}
