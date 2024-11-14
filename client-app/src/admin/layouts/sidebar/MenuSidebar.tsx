@@ -1,13 +1,5 @@
 import React from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faBriefcase,
-  faPaperPlane,
-  faQuestion,
-  faImage,
-  faCopy,
-} from "@fortawesome/free-solid-svg-icons"
+
 import { NavItem, NavLink, Nav } from "reactstrap"
 import classNames from "classnames"
 import { Link } from "react-router-dom"
@@ -24,15 +16,15 @@ const MenuSidebar = ({ isOpen, toggle }) => (
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
-        {menus.map((v) => 
+        {menus.map((v, i) => 
           !v.isSubmenu ? (
-            <NavItem>
+            <NavItem key={i}>
               <NavLink tag={Link} to={v.target}>
                 {/* <FontAwesomeIcon icon={faHome} className="mr-2" /> */}
                 {v.title}
               </NavLink>
             </NavItem>
-          ) : <SubMenu title={v.title} items={v.submenus} />
+          ) : <SubMenu key={i} title={v.title} items={v.submenus} />
         )}
       </Nav>
     </div>
