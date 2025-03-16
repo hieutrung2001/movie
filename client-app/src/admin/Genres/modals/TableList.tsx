@@ -27,7 +27,7 @@ const TableList = (props: any) => {
               <td>{v.name}</td>
               <td>{v.slug}</td>
               <td>
-                <Button onClick={() => toggle(v.id)} color="warning">
+                <Button onClick={() => toggle(v.id, { name: v.name, slug: v.slug })} color="warning">
                   Sửa
                 </Button>
                 {' '}

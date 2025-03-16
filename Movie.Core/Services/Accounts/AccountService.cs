@@ -14,7 +14,7 @@ namespace Movie.Core.Services.Accounts
     {
         string Get();
         string Generate(ApplicationUser user);
-        ApplicationUser Authentication(UserDto user);
+        ApplicationUser Authenticate(UserDto user);
     }
 
     public class AccountService : IAccountService
@@ -54,7 +54,7 @@ namespace Movie.Core.Services.Accounts
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public ApplicationUser Authentication(UserDto userLogin)
+        public ApplicationUser Authenticate(UserDto userLogin)
         {
             var item = _movieDbContext.Users.AsNoTracking().FirstOrDefault(i => i.UserName.Equals(userLogin.Username.Trim()));
             if (item == default)

@@ -22,7 +22,7 @@ namespace Movie.Web.Controllers
         [HttpPost("Login")]
         public IActionResult Login([FromBody] UserDto userLogin)
         {
-            var user = _accountService.Authentication(userLogin);
+            var user = _accountService.Authenticate(userLogin);
 
             if (user != null)
             {

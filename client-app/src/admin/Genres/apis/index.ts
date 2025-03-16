@@ -15,3 +15,15 @@ export const get = async (params: Pagination) => {
 
     return res
 }
+
+export const create = async (form) => {
+  const res = await axios.post(`${URL}`, form)
+    .then(response => {
+      return ResponseData(response.status, response.statusText, response.data)
+    })
+    .catch(error => {
+      return ResponseData(error.response.status, error.response.statusText)
+    })
+
+    return res
+}
