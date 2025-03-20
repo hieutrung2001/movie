@@ -3,6 +3,7 @@ import Layout from './layouts/Layout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { privateRoutes, publicRoutes } from './routes'
 import Combine from './admin/layouts/Combine'
+import AuthRequired from './routes/AuthRequired'
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +19,7 @@ function App() {
     },
     {
       // sidebarView
-      element: <Combine />,
+      element: <AuthRequired item={<Combine />} />,
       children: privateRoutes.commonSidebarView
     },
   ])

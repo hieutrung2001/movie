@@ -2,26 +2,46 @@ import React from 'react'
 import { useEffect, useState } from "react"
 import { create } from "../apis"
 
-const UseGenreModal = (props: any) => {
-  const {
-    item
-  } = props
+const useGenreModal = (item: any) => {
+  const initValues = {
+    name: '',
+    slug: ''
+  }
 
-  const [loading, setLoading] = useState(false)
-  
-  const addItem = async () => {
-    setLoading(true)
-    const res = await create(item)
-    setLoading(false)
+  const [form, setValues] = useState(initValues)
+
+
+  const onChange = (e) => {
+    setValues({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    const res = await create(form)
+    console.log('RESULT', res) 
   }
 
   useEffect(() => {
-    addItem()
-  }, [])
+    if (item) {
+      const {
+        name,
+        slug
+      } = item
+      setValues({ name, slug })
+    } else {
+      setValues(initValues)
+    }
+  }, [item])
+
 
   return {
-    loading
+    onChange,
+    submitForm,
+    form,
   }
 }
 
-export default UseGenreModal
+export default useGenreModal

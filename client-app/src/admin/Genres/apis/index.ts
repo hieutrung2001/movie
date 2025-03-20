@@ -3,6 +3,11 @@ import { BASE_URL, ResponseData } from "../../../constants"
 import { GenreModel, Pagination } from "../../constants"
 
 const URL = `${BASE_URL}/genre`
+const config = {
+  headers: {
+    Authorization: `Bearer ${sessionStorage.getItem('_token')}`
+  }
+}
 
 export const get = async (params: Pagination) => {
   const res = await axios.get(`${URL}`, {params})
@@ -17,7 +22,7 @@ export const get = async (params: Pagination) => {
 }
 
 export const create = async (form) => {
-  const res = await axios.post(`${URL}`, form)
+  const res = await axios.post(`${URL}`, form, config)
     .then(response => {
       return ResponseData(response.status, response.statusText, response.data)
     })

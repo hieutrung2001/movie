@@ -7,7 +7,13 @@ const Header = () => {
     genres
   } = useHooks()
 
-  console.log(genres)
+  const isLogin = () => {
+    if (sessionStorage.getItem('_token')) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark bg-gradient">
@@ -37,7 +43,7 @@ const Header = () => {
             <a href="#" className="nav-link">Hoàn thành</a>
           </li>
           <li className="nav-item">
-            <a href="/admin/login" className="nav-link">Đăng nhập</a>
+            <a href={isLogin() ? '/admin' : '/admin/login'} className="nav-link">Đăng nhập</a>
           </li>
           <li className="nav-item">
             <a href="#" className="nav-link">Đăng ký</a>

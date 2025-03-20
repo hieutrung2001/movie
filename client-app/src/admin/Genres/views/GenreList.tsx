@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap'
+import React, { useState } from 'react'
+import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap'
 import TableList from '../modals/TableList'
 import useGenreList from '../hooks/useGenreList'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd } from '@fortawesome/free-solid-svg-icons'
 import GenreModal from '../modals/GenreModal'
-import { GenreModel } from '../../constants'
 
 const GenreList = () => {
   const {
@@ -20,15 +19,8 @@ const GenreList = () => {
 
   const toggle = (id, item?) => {
     setModal(!modal)
-    console.log(id)
-    if (!modal) {
-      setId(id)
-    } else {
-      setId(0)
-    }
-    if (item) {
-      setItem(item)
-    }
+    !modal ? setId(id) : setId(0)
+    id != 0 ? setItem(item) : setItem(null)
   }
 
   return (
@@ -53,14 +45,6 @@ const GenreList = () => {
             item={item}
           />
         </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Do Something
-          </Button>{' '}
-          <Button color="secondary" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
       </Modal>
       <TableList
         listTitle={listTitle}

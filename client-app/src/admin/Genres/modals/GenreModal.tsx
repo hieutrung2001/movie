@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap'
-import UseGenreModal from '../hooks/useGenreModal'
+import useGenreModal from '../hooks/useGenreModal'
 
 const GenreModal = (props: any) => {
   const {
@@ -8,34 +8,14 @@ const GenreModal = (props: any) => {
     item
   } = props
 
-  const [form, setValues] = useState({
-    name: "",
-    slug: ""
-  })
+  const {
+    onChange,
+    submitForm,
+    form
+  } = useGenreModal(item)
 
-  const onChange = (e) => {
-    setValues({
-      ...form,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const submitForm = (e) => {
-    console.log(form)
-    e.preventDefault();
-    UseGenreModal({ item })
-  }
-
-  useEffect(() => {
-    if (item) {
-      const {
-        name,
-        slug
-      } = item
-      setValues({ name, slug })
-    }
-  }, [item])
-
+  console.log('form', form)
+  
   return (
     <Form onSubmit={submitForm}>
       <FormGroup>
@@ -58,7 +38,7 @@ const GenreModal = (props: any) => {
           value={form.slug == null ? "" : form.slug}
         />
       </FormGroup>
-      {/* <submitForm>Submit</submitForm> */}
+      <Button type='submit'>Submit</Button>
     </Form>
   )
 }
